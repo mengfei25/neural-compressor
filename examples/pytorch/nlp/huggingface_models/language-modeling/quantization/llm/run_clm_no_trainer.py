@@ -278,13 +278,15 @@ if args.quantize:
                 pad_max_length=args.gptq_pad_max_length
             )
             from intel_extension_for_transformers.llm.evaluation.lm_eval import evaluate
-
+            # remove wikitext
+            if user_model.config.model_type in ["qwen"]:
+                args.tasks.remove("wikitext")
             results = evaluate(
                 model="hf-causal",
                 model_args='pretrained=' + args.model + ',tokenizer=' + args.model + ',dtype=float32',
                 user_model=q_model_gptq_debug,
-                tasks=args.tasks if user_model.config.model_type not in ["qwen"] else args.tasks.remove("wikitext"),
-                batch_size=4
+                tasks=args.tasks,
+                batch_size=4,
             )
             exit(0)
 
