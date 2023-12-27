@@ -282,7 +282,8 @@ if args.quantize:
             results = evaluate(
                 model="hf-causal",
                 model_args='pretrained=' + args.model + ',tokenizer=' + args.model + ',dtype=float32',
-                user_model=q_model_gptq_debug, tasks=args.tasks,
+                user_model=q_model_gptq_debug,
+                tasks=args.tasks if user_model.config.model_type not in ["qwen"] else args.tasks.remove("wikitext"),
                 batch_size=4
             )
             exit(0)
