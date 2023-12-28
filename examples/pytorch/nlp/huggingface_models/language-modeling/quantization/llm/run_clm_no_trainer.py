@@ -279,7 +279,7 @@ if args.quantize:
             )
             from intel_extension_for_transformers.llm.evaluation.lm_eval import evaluate
             # remove wikitext
-            if user_model.config.model_type in ["qwen"]:
+            if user_model.config.model_type in ["qwen"] and "wikitext" in args.tasks:
                 args.tasks.remove("wikitext")
             results = evaluate(
                 model="hf-causal",
