@@ -283,7 +283,7 @@ if args.quantize:
                 args.tasks.remove("wikitext")
             results = evaluate(
                 model="hf-causal",
-                model_args='pretrained=' + args.model + ',tokenizer=' + args.model + ',dtype=float32',
+                model_args='pretrained=' + args.model + ',tokenizer=' + args.model + ',dtype=float32' + ",trust_remote_code=" + str(args.trust_remote_code),
                 user_model=q_model_gptq_debug,
                 tasks=args.tasks,
                 batch_size=4,
